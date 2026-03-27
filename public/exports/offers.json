@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Première offre",
+        "description": "Ceci est la première offre",
+        "tags": "test1, test2",
+        "createdAt": "2026-03-23T14:58:32+00:00"
+    },
+    {
+        "id": 4,
+        "title": "Développeur Full Stack - Symfony",
+        "description": "Nous sommes à la recherche d'un développeur Full Stack en Symfony",
+        "tags": "Symfony, DFS, Dev",
+        "createdAt": "2026-03-24T09:41:09+00:00"
+    },
+    {
+        "id": 6,
+        "title": "Test API",
+        "description": "Test API sur Insomnia",
+        "tags": "API, Test, Insomnia",
+        "createdAt": "2026-03-24T14:02:49+00:00"
+    }
+]

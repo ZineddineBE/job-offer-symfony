@@ -1,0 +1,53 @@
+# config/packages/workflow.yaml
+framework:
+    workflows:
+        candidacy_review:
+            type: 'state_machine' # or 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'status'
+            supports:
+                - App\Entity\Candidacy
+            initial_marking: pending
+            places:          # defining places manually is optional
+                - pending
+                - reviewed
+                - rejected
+                - accepted
+            transitions:
+                to_review:
+                    from: pending
+                    to:   reviewed
+                publish:
+                    from: reviewed
+                    to:   accepted
+                reject:
+                    from: reviewed
+                    to:   rejected
+        offer_review:
+            type: 'state_machine' # or 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'method'
+                property: 'status'
+            supports:
+                - App\Entity\Offer
+            initial_marking: draft
+            places: # defining places manually is optional
+                - draft
+                - pending_review
+                - published
+                - archived
+            transitions:
+                submit_for_review:
+                    from: draft
+                    to: pending_review
+                publish:
+                    from: pending_review
+                    to: published
+                archived:
+                    from: published
+                    to: archived

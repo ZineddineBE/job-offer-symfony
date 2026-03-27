@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ importmap('app') }}
+{% endblock %}
+
+{% block title %}Hello OfferController!{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div class="user-welcome">
+            <p>Bonjour <strong>{{ app.user.email }}</strong> !</p>
+            <a href="{{ path('offers') }}" class="link">Liste des offres</a>
+            <a href="{{ path('app_logout') }}" class="logout-link">Se déconnecter</a>
+        </div>
+    {% endif %}
+
+    <h1>Mes candidatures</h1>
+
+    <div class="container">
+        {% for candidacy in candidacies %}
+            <a href="{{ path('candidacy', {'id': candidacy.id}) }}">
+                <div class="card">
+                    <h2>{{ candidacy.offer.title }} <span>{{ candidacy.createdAt|date('d/m/Y H:i') }}</span></h2>
+                    <p>{{ candidacy.message }}</p>
+                    <p>{{ candidacy.attachedFile }}</p>
+
+                    <div class="actions">
+                        <div class="admin-actions">
+                            <a class="delete-button" href="{{ path('deleteCandidacy', {'id': candidacy.id}) }}">Supprimer</a>
+                            <a class="edit-button" href="{{ path('edit_candidacy', {'id': candidacy.id}) }}">Modifier</a>
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        {% else %}
+            <div class="no-data">
+                <p>Aucune candidature pour le moment.</p>
+                <a href="{{ path('offers') }}" class="btn">Voir les offres disponibles</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

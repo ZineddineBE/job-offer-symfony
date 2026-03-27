@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ importmap('app') }}
+{% endblock %}
+
+{% block title %}Hello OfferController!{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div class="user-welcome">
+            <p>Bonjour <strong>{{ app.user.email }}</strong> !</p>
+            <a href="{{ path('candidacies') }}" class="candidacies">Mes candidatures</a>
+            <a href="{{ path('app_logout') }}" class="logout-link">Se déconnecter</a>
+        </div>
+    {% endif %}
+
+    <h1>Liste des offres</h1>
+
+    <div class="container">
+        {% for offer in offers %}
+            <div class="card">
+                {# On met le lien uniquement sur le titre pour accéder au détail #}
+                <h2>
+                    <a href="{{ path('offer', {'id': offer.id}) }}">{{ offer.title }}</a>
+                    <span>{{ offer.createdAt|date('d/m/Y H:i') }}</span>
+                </h2>
+
+                <p>{{ offer.description }}</p>
+
+                <div class="actions">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <div class="admin-actions">
+                            <a class="delete-button" href="{{ path('deleteOffer', {'id': offer.id}) }}">Supprimer</a>
+                            <a class="edit-button" href="{{ path('edit_offer', {'id': offer.id}) }}">Modifier</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="left-actions">
+                        <span class="tag-badge">{{ offer.tags }}</span>
+                        {% if offer.isApplied %}
+                            <span class="applied-badge">Déjà postulé</span>
+                        {% else %}
+                            <a class="apply-button" href="{{ path('applyOffer', {'id': offer.id}) }}">Candidater</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

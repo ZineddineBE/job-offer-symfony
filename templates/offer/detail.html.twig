@@ -1,0 +1,126 @@
+{# templates/offer/detail.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'offre : {{ offer.title }}{% endblock %}
+
+{% block body %}
+    <style>
+        .offer-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+
+        .offer-header {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .offer-title {
+            font-size: 2rem;
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .offer-meta {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        .offer-description {
+            font-size: 1.1rem;
+            white-space: pre-line; /* Garde les sauts de ligne du formulaire */
+            margin-bottom: 30px;
+        }
+
+        .tag-list {
+            margin-bottom: 25px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            color: #555;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-apply {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-apply:hover {
+            background-color: #2980b9;
+        }
+
+        .link-back {
+            color: #7f8c8d;
+            text-decoration: none;
+        }
+
+        .link-back:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    {% if app.user %}
+        <div class="user-welcome">
+            <p>Bonjour <strong>{{ app.user.email }}</strong> !</p>
+            <a href="{{ path('candidacies') }}" class="candidacies">Mes candidatures</a>
+            <a href="{{ path('app_logout') }}" class="logout-link">Se déconnecter</a>
+        </div>
+    {% endif %}
+
+    <div class="offer-container">
+        <div class="offer-header">
+            <h1 class="offer-title">{{ offer.title }}</h1>
+            <div class="offer-meta">
+                Publiée le {{ offer.createdAt|date('d/m/Y') }}
+                {% if offer.user %} • Par {{ offer.user.email }}{% endif %}
+            </div>
+        </div>
+
+        <div class="offer-description">
+            {{ offer.description }}
+        </div>
+
+        <div class="tag-list">
+            {% for tag in offer.tags|split(',') %}
+                <span class="tag">#{{ tag|trim }}</span>
+            {% endfor %}
+        </div>
+
+        <div class="actions">
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('applyOffer', {'id': offer.id}) }}" class="btn-apply">Candidater à cette offre</a>
+            {% else %}
+                <p><em><a href="{{ path('app_login') }}">Connectez-vous</a> pour postuler.</em></p>
+            {% endif %}
+
+            <a href="{{ path('offers') }}" class="link-back">← Retour à la liste</a>
+        </div>
+    </div>
+{% endblock %}

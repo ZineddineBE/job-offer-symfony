@@ -1,0 +1,253 @@
+/* --- Styles de base inchangés --- */
+body {
+    background-color: #f4f7f6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    padding: 40px;
+}
+
+a:visited, a:active {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.user-welcome {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+}
+
+.user-welcome strong {
+    color: #2c3e50;
+}
+
+.link {
+    color: #1f81ff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.link:hover {
+    border-color: #1672d5;
+}
+
+.logout-link {
+    color: #e74c3c;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.logout-link:hover {
+    border-color: #e74c3c;
+}
+
+/* --- Conteneur du message vide --- */
+.no-data {
+    text-align: center;
+    padding: 60px 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    border: 2px dashed #dcdfe6; /* Effet pointillé pour montrer le vide */
+    color: #7f8c8d;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.no-data p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+/* --- Style du bouton .btn --- */
+.btn {
+    display: inline-block;
+    background-color: #3498db; /* Bleu pour l'action principale de navigation */
+    color: #ffffff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+}
+
+.btn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- Base de la carte --- */
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px 30px;
+    border: 1px solid #e1e8ed;
+    transition: all 0.3s ease;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: #3498db;
+}
+
+/* --- Typographie --- */
+.card h2 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- Nouveau Container pour les actions (Boutons + Tags) --- */
+/* Remplace tes styles .card a, .apply-button, .edit-button, etc. par ceci */
+
+.actions {
+    display: flex;
+    align-items: center; /* Aligne tout verticalement au centre */
+    justify-content: space-between; /* Pousse les boutons admin à droite */
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.left-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* --- Boutons : On retire les floats --- */
+.card a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 0; /* On retire la marge car Flex gère l'espacement */
+}
+
+/* --- Tags : On simplifie --- */
+.tag-badge {
+    background-color: #f0f4f8;
+    color: #546e7a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap; /* Évite que le tag passe à la ligne */
+}
+
+/* --- Bouton Candidater (Action Principale) --- */
+.apply-button {
+    background-color: #27ae60; /* Vert pour l'action positive */
+    color: white;
+    float: left; /* Placé à gauche pour être vu en premier */
+}
+
+.apply-button:hover {
+    background-color: #219150;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(39, 174, 96, 0.2);
+}
+
+/* --- Boutons Admin (Modifier / Supprimer) --- */
+.edit-button, .delete-button {
+    float: right;
+    margin-left: 10px;
+}
+
+.edit-button {
+    background-color: #f3f6f9;
+    color: #3498db;
+    border: 1px solid #3498db;
+}
+
+.edit-button:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+.delete-button {
+    background-color: #fff;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+.delete-button:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* --- Badge Déjà Postulé --- */
+.applied-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f8f9fa; /* Fond gris très clair */
+    color: #7f8c8d;           /* Texte gris bleuté */
+    border: 1px solid #dcdfe6; /* Bordure discrète */
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: none;
+    cursor: default;           /* Curseur normal (pas de main) */
+    pointer-events: none;      /* Désactive les clics au cas où c'est un lien <a> */
+    user-select: none;         /* Empêche la sélection du texte */
+    transition: none;          /* Pas d'effet au survol */
+}
+
+/* Optionnel : ajouter une petite icône de validation via CSS */
+.applied-badge::before {
+    content: "✓ ";
+    color: #27ae60;            /* Le check reste vert pour confirmer le succès */
+    font-weight: bold;
+}
+

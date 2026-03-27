@@ -1,0 +1,101 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: My App
+            description: This is an awesome app!
+            version: 1.0.0
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+            - Bearer: []
+        paths:
+            /api/login_check:
+                post:
+                    tags:
+                        - Authentification
+                    summary: Obtenir un token JWT
+                    description: Connectez-vous avec vos identifiants pour recevoir un token JWT.
+                    security: []
+                    requestBody:
+                        required: true
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    required:
+                                        - username
+                                        - password
+                                    properties:
+                                        username:
+                                            type: string
+                                            example: user@example.com
+                                        password:
+                                            type: string
+                                            example: motdepasse
+                    responses:
+                        '200':
+                            description: Token JWT retourné avec succès
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token:
+                                                type: string
+                                                description: Le token JWT à utiliser dans le header Authorization
+                                            refresh_token:
+                                                type: string
+                                                description: Token de rafraîchissement
+                        '401':
+                            description: Identifiants invalides
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            code:
+                                                type: integer
+                                                example: 401
+                                            message:
+                                                type: string
+                                                example: Invalid credentials.
+            /api/token/refresh:
+                post:
+                    tags:
+                        - Authentification
+                    summary: Rafraîchir un token JWT
+                    description: Utilisez votre refresh token pour obtenir un nouveau token JWT.
+                    security: []
+                    requestBody:
+                        required: true
+                        content:
+                            application/json:
+                                schema:
+                                    type: object
+                                    required:
+                                        - refresh_token
+                                    properties:
+                                        refresh_token:
+                                            type: string
+
+                    responses:
+                        '200':
+                            description: Nouveau token JWT
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token:
+                                                type: string
+                                            refresh_token:
+                                                type: string
+                        '401':
+                            description: Refresh token invalide ou expiré
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

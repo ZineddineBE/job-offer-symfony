@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/form.css') }}">
+{% endblock %}
+
+{% block title %}Hello OfferController!{% endblock %}
+
+{% block body %}
+
+    {% if app.user %}
+        <div class="user-welcome">
+            <p>Bonjour <strong>{{ app.user.email }}</strong> !</p>
+            <a href="{{ path('offers') }}" class="link">Liste des offres</a>
+            <a href="{{ path('app_logout') }}" class="logout-link">Se déconnecter</a>
+        </div>
+    {% endif %}
+
+    <div class="example-wrapper">
+        <h1>Candidature pour {{ offer.title }}</h1>
+
+        {{ form_start(form) }}
+        {{ form_row(form.message) }}
+        {{ form_row(form.attachedFile) }}
+
+        <button class="btn">Candidater</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

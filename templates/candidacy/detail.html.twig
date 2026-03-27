@@ -1,0 +1,140 @@
+{# templates/offer/detail.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail de l'offre : {{ candidacy.offer.title }}{% endblock %}
+
+{% block body %}
+    <style>
+
+        .candidacy-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: #fff;
+            border: 1px solid #e1e1e1;
+            border-radius: 12px;
+            font-family: sans-serif;
+        }
+
+        .info-block {
+            margin-bottom: 25px;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.8rem;
+            color: #95a5a6;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+
+        /* Style spécifique pour le document */
+        .file-box {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e0;
+            margin-top: 10px;
+        }
+
+        .file-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        .btn-download {
+            background: #2ecc71;
+            color: white !important; /* Force le blanc malgré le reset */
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: auto;
+            transition: opacity 0.2s;
+        }
+
+        .btn-download:hover {
+            opacity: 0.9;
+        }
+
+        .motivation-area {
+            background: #fffdf5;
+            padding: 20px;
+            border: 1px solid #f3e5ab;
+            border-radius: 4px;
+            white-space: pre-line;
+            margin-top: 10px;
+        }
+    </style>
+
+    {% if app.user %}
+        <div class="user-welcome">
+            <p>Bonjour <strong>{{ app.user.email }}</strong> !</p>
+            <a href="{{ path('candidacies') }}" class="link">Liste des candidatures</a>
+            <a href="{{ path('app_logout') }}" class="logout-link">Se déconnecter</a>
+        </div>
+    {% endif %}
+
+    <div class="candidacy-container">
+        <h1 style="color: #2c3e50; margin-bottom: 30px;">Détail Candidature</h1>
+
+        <div class="info-block">
+            <span class="label">Offre</span>
+            <div class="content">
+                <a href="{{ path('offer', {'id': candidacy.offer.id}) }}" style="color: #3498db;">
+                    <strong>{{ candidacy.offer.title }}</strong>
+                </a>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <span class="label">Candidat</span>
+            <div class="content">{{ candidacy.user.email }}</div>
+        </div>
+
+        {# Bloc Fichier Joint #}
+        <div class="info-block">
+            <span class="label">Document (CV / Lettre)</span>
+            {% if candidacy.attachedFile %}
+                <div class="file-box">
+                    <span class="file-icon">📄</span>
+                    <span class="content">{{ candidacy.attachedFile }}</span>
+                    {# Lien vers le dossier public où sont stockés les fichiers #}
+                    <a href="{{ asset('uploads/' ~ candidacy.attachedFile) }}"
+                       class="btn-download"
+                       target="_blank">
+                        Voir le document
+                    </a>
+                </div>
+            {% else %}
+                <div class="content" style="color: #e74c3c; font-size: 0.9rem;">
+                    Aucun document joint à cette candidature.
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="info-block">
+            <span class="label">Message</span>
+            <div class="motivation-area">
+                {{ candidacy.message|default('Pas de message particulier.') }}
+            </div>
+        </div>
+
+        <div class="info-block">
+            <span class="section-title">Statut actuel</span>
+            <div class="status-badge">{{ candidacy.status|default('En attente') }}</div>
+            <div class="status-badge">{{ dump(candidacy) }}</div>
+        </div>
+
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+            <a href="{{ path('offers') }}" style="color: #7f8c8d;">← Retour</a>
+        </div>
+    </div>
+{% endblock %}
